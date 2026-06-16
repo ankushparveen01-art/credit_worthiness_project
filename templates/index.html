@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credit Worthiness Predictor</title>
+  <link rel="stylesheet" href="/static/css/dashboard.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">CreditIQ</div>
+      <nav>
+        <a href="#predictor" class="nav-link active">Predict</a>
+        <a href="#metrics" class="nav-link">Model metrics</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- PREDICT SECTION -->
+    <section id="predictor" class="section">
+      <h1 class="section-title">Credit worthiness prediction</h1>
+      <p class="section-sub">Adjust the applicant's financial profile and choose a model.</p>
+
+      <div class="card-grid">
+        <div class="card" id="form-card">
+          <h2 class="card-title">Financial profile</h2>
+
+          <div class="field-group">
+            <div class="field">
+              <label>Annual income (₹)</label>
+              <input type="range" id="income" min="200000" max="5000000" value="1800000" step="50000">
+              <span class="field-val" id="incomeV">₹18,00,000</span>
+            </div>
+            <div class="field">
+              <label>Total debt (₹)</label>
+              <input type="range" id="debt" min="0" max="4000000" value="600000" step="50000">
+              <span class="field-val" id="debtV">₹6,00,000</span>
+            </div>
+            <div class="field">
+              <label>Credit score</label>
+              <input type="range" id="credit_score" min="300" max="900" value="720" step="5">
+              <span class="field-val" id="credit_scoreV">720</span>
+            </div>
+            <div class="field">
+              <label>On-time payments (%)</label>
+              <input type="range" id="on_time_pct" min="0" max="100" value="92" step="1">
+              <span class="field-val" id="on_time_pctV">92%</span>
+            </div>
+            <div class="field">
+              <label>Credit utilization (%)</label>
+              <input type="range" id="utilization" min="0" max="100" value="28" step="1">
+              <span class="field-val" id="utilizationV">28%</span>
+            </div>
+            <div class="field">
+              <label>Credit history (years)</label>
+              <input type="range" id="history_years" min="0" max="30" value="8" step="1">
+              <span class="field-val" id="history_yearsV">8 yr</span>
+            </div>
+            <div class="field">
+              <label>Delinquencies</label>
+              <input type="range" id="delinquencies" min="0" max="10" value="0" step="1">
+              <span class="field-val" id="delinquenciesV">0</span>
+            </div>
+          </div>
+
+          <div class="model-row">
+            <label>Model</label>
+            <select id="model-select">
+              <option value="random_forest">Random Forest</option>
+              <option value="logistic_regression">Logistic Regression</option>
+              <option value="decision_tree">Decision Tree</option>
+            </select>
+            <button id="predict-btn" onclick="runPredict()">Predict</button>
+          </div>
+        </div>
+
+        <div class="card" id="result-card">
+          <h2 class="card-title">Result</h2>
+          <div id="result-area" class="result-placeholder">
+            <p>Adjust sliders and click <strong>Predict</strong></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODEL METRICS SECTION -->
+    <section id="metrics" class="section">
+      <h2 class="section-title">Model performance</h2>
+      <p class="section-sub">Evaluated on a held-out 20% test split (2,000 records).</p>
+      <div class="metrics-table-wrap">
+        <table class="metrics-table" id="metrics-table">
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>Accuracy</th>
+              <th>Precision</th>
+              <th>Recall</th>
+              <th>F1-Score</th>
+              <th>ROC-AUC</th>
+            </tr>
+          </thead>
+          <tbody id="metrics-body">
+            <tr><td colspan="6" style="text-align:center;color:#888;">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>
